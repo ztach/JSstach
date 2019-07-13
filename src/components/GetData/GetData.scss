@@ -1,0 +1,112 @@
+/* your css code */
+
+@mixin panel_l_p {
+    margin:2px;
+    padding:1.5px;
+    flex-grow: 1;
+    width: 50vw;
+    height: 46vh;
+}
+
+@mixin panel_u_d { 
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    width: 98vw;
+    height: 55vh;
+    margin:2.5px;
+    padding:1px;
+}
+
+
+.Panel{
+    display: block;
+    width: 95vw;
+    height: 95vh;
+    margin:7px;
+    padding:3px;
+    display: flex;
+    flex-direction:column;
+
+    &___up{
+        @include panel_u_d;
+    
+
+        &__left{
+            @include panel_l_p;
+            background-color: beige;
+            overflow-y: auto;
+        }
+        &__right{
+            @include panel_l_p;
+            background-color: bisque;
+            overflow-y: auto;
+
+            .tabType{
+                display: block;
+                width:80%;
+                height:100%;
+                margin-left:40px;
+
+                &___head{
+                    width:750px;
+                    &_th{
+                        width:3px;
+                        padding: 0 30px;
+                    }
+                }
+
+                &__table{
+                    width:100%;
+                    
+                    &___body tbody {
+                        width:80%;
+                
+                    }
+    
+                }
+            }
+        }
+    }
+    &___down{
+        @include panel_u_d;
+
+        &__left{
+            @include panel_l_p;
+            background-color: aquamarine;
+        }
+        &__right{
+            @include panel_l_p;
+            background-color:azure;
+            &_label{
+                display:block;
+                width:100%;
+                margin-top:10px;
+                padding:6px;
+                font-size:18px;
+            }
+            &_input{
+                display:block;
+                width:80%;
+                margin-top:10px;
+                padding:6px;
+            }
+            &_btn{
+                display:block;
+                width:40%;
+                margin:15px auto;
+                padding:6px;
+                font-size:16px;
+                font-weight: bold;
+                text-transform: uppercase;
+                border: 1px brown solid;
+                background-color: brown;
+                color:white;
+            }
+
+        }
+ }
+}
+
+
+
