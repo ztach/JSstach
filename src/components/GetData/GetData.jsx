@@ -1,8 +1,12 @@
 import React, { PureComponent } from 'react';
+import {Link} from 'react-router-dom';
 import InsertDataType from '../InsertDataType/InsertDataType';
 import TypeList from '../TypeList/TypeList';
-import getDictList from '../../common/getDictList';
-import MyNewApi from '../MyNewApi/MyNewApi';
+//import getDictList from '../../common/getDictList';
+//import MyNewApi from '../MyNewApi/MyNewApi';
+import FormComp from '../FormComp/FormComp';
+import * as getAllType from '../helpers/typeApi';
+import * as _ from 'ramda';
 import './GetData.scss';
 
 
@@ -16,127 +20,126 @@ class GetData extends PureComponent {
       error:null,
       checkTab:[],
       idDeleting:false,
+      draft:'',
+      inEdit:'',
+      isEdit: false
     };
  
-  componentDidMount ()  {
-    this.fetchDict();
-    this.fetchTypes();
-    }
+  componentDidMount = async () => {
 
-  fnGetDataDict = () => {
-    let dane = getDictList(`http://localhost:3001/`,`dict`);
-    this.setState({dict:dane});
-  }
-  
-   componentDidUpdate = () => {
-     if(this.state.idDeleting){
-       this.fetchTypes() 
-       this.setState({idDeleting:false});
-    }
-   }
-
-fetchDict = () => {
-    fetch(`http://localhost:3001/dict`)
-      .then(response => response.json())
-      .then(data =>
-        this.setState({
-          dict: data,
-          isDictLoading: true,
-        })
-      )
-      .catch(error => this.setState({ error, isDictLoading: false }))
-  }
-
-  fetchTypes = () => {
-    fetch(`http://localhost:3001/type`)
-      .then(response => response.json())
-      .then(data =>
-        this.setState({
-          type: data,
-          isTypeLoading: true,
-        })
-      )
-      .catch(error => this.setState({ error, isTypeLoading: false }));
-  }
-
-
-  onChangeTypCheck = e => {
-    let isChecked = e.target.checked;
-    const id = parseInt(e.target.id);
-    const typ = e.target.name.toString();
-    if(isChecked){
-      let w ={
-        id,
-        typ
-      }
-      this.setState({
-        checkTab: [...this.state.checkTab,w]
-      })
-    }else{
-      const delTab = this.state.checkTab;
-      let delId = delTab.filter(item => item.id !== id);
-      this.setState({
-        checkTab: delId
-      })
-    }
-    if(this.props.idDeleting){
-      e.target.checked = false
-    }
-  }
-
-  onClickDeleteType = e => {
-    const id = e.target.id;
+    const type = await getAllType.getAllTypes();
+    const dict = await getAllType.getAllDicts();
     
-    fetch('http://localhost:3001/type/'+id, {
-        method: 'DELETE',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-         }
+    this.setState({
+      type,
+      dict,
+      isDictLoading:true,
+      isTypeLoading:true,
       })
-      .then(res => res.json()) // OR res.json()
-      .then( this.setState({idDeleting:true}))
+    }
 
+  // findById = (id,arr) => {
+  //   const index = arr.findIndex((item,idx) => 
+  //       item.id === parseInt(id))
+  //   return {index,typ:arr[index] }
+  // }
+
+  findById = (id,arr) => {
+    const index = _.findIndex(_.propEq('id', parseInt(id)))(arr)
+    return {index,typ:arr[index] }
   }
 
 
-  render () {
-    const {dict,type,checkTab,isTypeLoading,isDictLoading,error} = this.state;
-    let slowa=[];
-    let message="czekam na załadowanie ";
-
-  if (!isDictLoading && !isTypeLoading){
-        return (
-          <div>
-            <p>{message} baz: DICT i TYPE</p>
-          </div>
-        )
+  onClickDeleteType = async (e) => {
+    const id = e.target.id;
+    const {type} = this.state;
+     await getAllType.destroy(id)
+    const {index} = this.findById(id,type)
+    
+     this.setState({
+      type: _.remove(index,1,type)
+    })
   }
 
-  if (isDictLoading && !isTypeLoading){
-      return (
-        <div>
-          <p>{message} bay: TYPE</p>
-        </div>
-      )
+  onEdityType = async (e) =>{
+    const id = e.target.id;
+    const typ = await getAllType.get(id)
+    this.setState({
+      inEdit:typ,
+      isEdit:true
+    })
   }
 
-  if (!isDictLoading && isTypeLoading){
+
+  getMaxIdInArray = (arr) => {
+    if(arr.length>0){
+      let idTab = arr.map(item=>item).sort((x,y) => parseInt(x.id) - parseInt(y.id));
+      return idTab[idTab.length-1];
+    }
+    return 0;
+  }
+
+   mId=() => this.getMaxIdInArray(this.state.type);
+
+
+  onClickSaveType = async () => {
+    const {type,draft} = this.state;
+    const id = this.mId().id;
+
+    const typ = await getAllType.create({id:id+1,typ:draft})
+    this.setState({
+      type: [...type,typ],
+      draft:''
+    })
+  }
+
+  onChangeAddType = e => {
+    const value = e.target.value;
+    this.setState({
+      draft:value
+    })
+    return value
+  }
+
+ render () {
+    const {dict,type,checkTab,isTypeLoading,isDictLoading,error} = this.state;    
+
+  let slowa=[]
+    
+  let message="czekam na załadowanie ";
+
+if (!isDictLoading && !isTypeLoading){
     return (
       <div>
-        <p>{message} bay: DICT</p>
+        <p>{message} baz: DICT i TYPE</p>
       </div>
     )
   }
 
+if (isDictLoading && !isTypeLoading){
+    return (
+      <div>
+        <p>{message} bay: TYPE</p>
+      </div>
+    )
+}
 
-  if(isDictLoading && isTypeLoading){
-      if(dict.length>0){
-        slowa = dict.map(item=> 
-        <li key={item.id}>{item.id}. {item.sl} - typ pytania: '{item.gt}' (id typu: {item.typ}) </li>
-          )
-        }
-  }
+if (!isDictLoading && isTypeLoading){
+  return (
+    <div>
+      <p>{message} bay: DICT</p>
+    </div>
+  )
+}
+
+
+if(isDictLoading && isTypeLoading){
+    if(dict.length>0){
+      slowa = dict.map(item=> 
+      <li key={item.id}>{item.id}. {item.sl} - typ pytania: '{item.gt}' (id typu: {item.typ}) </li>
+        )
+      }
+}
 
         
   return (
@@ -158,8 +161,8 @@ fetchDict = () => {
           <TypeList 
               type={type} 
               checkTab={checkTab} 
-              onChangeTypCheck={this.onChangeTypCheck} 
               onClickDeleteType={this.onClickDeleteType}
+              onEdityType={this.onEdityType}
               />
           :
           <div>{error}</div>
@@ -169,12 +172,25 @@ fetchDict = () => {
        
 
        <div className="Panel___down__left">
-          <MyNewApi />
+         {this.state.isEdit?
+          <FormComp 
+          inEdit={this.state.inEdit}
+          />
+          :
+          null
+         }
        </div>
 
-       <InsertDataType type={type}  fetchTypes={this.fetchTypes} />
-
+       <InsertDataType 
+          type={type}
+          mId={this.mId}
+          draft={this.state.draft}
+          onChangeAddType={this.onChangeAddType}
+          onClickSaveType={this.onClickSaveType}
+          />
+       <Link to='/'>Back</Link>
     </div>
+
   </div>
       
   );
@@ -183,3 +199,4 @@ fetchDict = () => {
 
 
 export default GetData;
+

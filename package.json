@@ -3,10 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "formik": "^1.5.8",
     "json-server": "^0.15.0",
     "node-sass": "^4.12.0",
+    "ramda": "^0.26.1",
     "react": "^16.8.6",
+    "react-aria-modal": "^4.0.0",
     "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1"
   },
   "scripts": {

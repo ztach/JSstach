@@ -34,16 +34,13 @@ class MyNewApi extends PureComponent {
   .then(response => {
     if(response.ok){
       this.setState({isInsert:!this.state.isInsert})
-      console.log('====================================');
-      console.log('prawda');
-      console.log('====================================');
       }
    })
   }
 
 
   render () {
-    console.log(this.state.hasError)
+
     return (
       <div className="MyNewApiWrapper">
         <button onClick={this.onClickGetNewApi}>Kontakt z api</button>

@@ -20,11 +20,12 @@
 
 
 .Panel{
+    position: absolute;
+    left:0;
+    top:0;
     display: block;
-    width: 95vw;
-    height: 95vh;
-    margin:7px;
-    padding:3px;
+    max-width: 100%;
+    max-height: 100%;
     display: flex;
     flex-direction:column;
 
@@ -41,31 +42,6 @@
             @include panel_l_p;
             background-color: bisque;
             overflow-y: auto;
-
-            .tabType{
-                display: block;
-                width:80%;
-                height:100%;
-                margin-left:40px;
-
-                &___head{
-                    width:750px;
-                    &_th{
-                        width:3px;
-                        padding: 0 30px;
-                    }
-                }
-
-                &__table{
-                    width:100%;
-                    
-                    &___body tbody {
-                        width:80%;
-                
-                    }
-    
-                }
-            }
         }
     }
     &___down{
@@ -109,4 +85,77 @@
 }
 
 
+.tabType{
+    display: block;
+    width:80%;
+    height:80%;
+    margin: 0 auto;
+}
+.tabType___table {
+    width: 100%;
+}
 
+.tabType___table___head{
+    width:100px;
+}
+
+.tabType___table___head_th{
+    width:100%;
+    padding: 0 3px;
+}
+
+.tabType___table___head_th_0 {
+    width: 1%;
+}
+
+.tabType___table___head_th_1 {
+    width: 80%;
+}  
+
+.tabType___table___head_th_2 {
+    width: 10%;
+}
+
+.tabType___body {
+    display: block;
+    width:100%;
+    }
+.tabType___body_id {
+    width: 20px;
+    padding:1px;
+}
+.tabType___body_typ {
+    width: 90%;
+    margin-left:20px;
+}
+
+.tabType___body_del{
+    width: 10px;
+}
+
+.tabType___body_del_btn{
+    background-color: brown;
+    border:1px black solid;
+    color:yellow;
+}
+
+.tabType___body_del_btn:hover {
+    cursor: pointer;
+    background-color:yellow;
+    border:1px black solid;
+    color: brown;
+}
+
+.activate-btn {
+    display:block;
+    padding: 10px 20px;
+    background-color: rgb(240, 212, 212);
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.activate-btn:hover {
+    cursor: pointer;
+    color:yellow;
+    background-color:black;
+}

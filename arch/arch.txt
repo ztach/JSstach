@@ -1,0 +1,80 @@
+  /*
+  fnGetDataDict = () => {
+    let dane = getDictList(`http://localhost:3001/`,`dict`);
+    this.setState({dict:dane});
+  }
+  
+   componentDidUpdate = () => {
+     if(this.state.idDeleting){
+       this.fetchTypes() 
+       this.setState({idDeleting:false});
+    }
+   }
+
+fetchDict = () => {
+    fetch(`http://localhost:3001/dict`)
+      .then(response => response.json())
+      .then(data =>
+        this.setState({
+          dict: data,
+          isDictLoading: true,
+        })
+      )
+      .catch(error => this.setState({ error, isDictLoading: false }))
+  }
+
+  fetchTypes = () => {
+    fetch(`http://localhost:3001/type`)
+      .then(response => response.json())
+      .then(data =>
+        this.setState({
+          type: data,
+          isTypeLoading: true,
+        })
+      )
+      .catch(error => this.setState({ error, isTypeLoading: false }));
+  }
+*/
+
+  onChangeTypCheck = e => {
+    let isChecked = e.target.checked;
+    const id = parseInt(e.target.id);
+    const typ = e.target.name.toString();
+    if(isChecked){
+      let w ={
+        id,
+        typ
+      }
+      this.setState({
+        checkTab: [...this.state.checkTab,w]
+      })
+    }else{
+      const delTab = this.state.checkTab;
+      let delId = delTab.filter(item => item.id !== id);
+      this.setState({
+        checkTab: delId
+      })
+    }
+    if(this.props.idDeleting){
+      e.target.checked = false
+    }
+  }
+
+
+
+
+  onClickDeleteType = e => {
+    const id = e.target.id;
+    
+    fetch('http://localhost:3001/type/'+id, {
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+         }
+      })
+      .then(res => res.json()) // OR res.json()
+      .then( this.setState({idDeleting:true}))
+
+  }
+

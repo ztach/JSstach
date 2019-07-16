@@ -7,7 +7,8 @@ import React from 'react';
  */     
 const TabListSzablon = (props) => {
   const {tbodyr,theader} = props;
-  const mheader=theader.map(i=> <th className="tabType___head_th" key={i}>{i}</th> )
+  const styl="tabType___head_th";
+  const mheader=theader.map((i,idx)=> <th className={styl + '_' + idx} key={idx}>{i}</th> )
   return (  
     <div className="tabType">
     <table className="tabType___table">

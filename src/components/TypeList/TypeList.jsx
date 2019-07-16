@@ -1,26 +1,36 @@
 import React from 'react';
-
 import TabListSzablon from '../../szablon/TabListSzablon';
 import TChecTypeDel from '../TChecTypeDel/TChecTypeDel';
 
 
 
 const TypeList = props => {
-const {type,onChangeTypCheck,checkTab,onClickDeleteType}=props;
+const {type,onChangeTypCheck,checkTab,onClickDeleteType,onEdityType}=props;
 
-const theader = ['Id','Hasło','Akcja'];
-      
+  const theader = ['Id','Hasło','Usuń','Edytuj'];
+  const action=['x','Edit'] ;
+
   const tbodyr = type.map(item => 
   <tr key={item.id} >
-    <td>{item.id}</td>
-    <td> {item.typ} </td>
-    <td>
+    <td className="tabType___body_id">{item.id}</td>
+    <td className="tabType___body_typ"> {item.typ} </td>
+    <td className="tabType___body_del">
     <TChecTypeDel 
+        action={action[0]}
         item={item} 
         onChangeTypCheck={onChangeTypCheck} 
-        onClickDeleteType={onClickDeleteType}
+        onActionType={onClickDeleteType}
         checkTab={checkTab} 
         /> 
+    </td>
+    <td className="tabType___body_del">
+    <TChecTypeDel 
+        action={action[1]}
+        item={item} 
+        onChangeTypCheck={onChangeTypCheck} 
+        onActionType={onEdityType}
+        checkTab={checkTab} 
+        />       
     </td>
   </tr>
     )

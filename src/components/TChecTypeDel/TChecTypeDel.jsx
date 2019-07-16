@@ -1,14 +1,21 @@
 import React from 'react';
 
 const TChecTypeDel = props => {
-  const {item, onClickDeleteType}=props;  
+  const {item, onActionType,action}=props;  
 //onChangeTypCheck,checkTab,
     return (
-      <div>
-      {/* <input type="checkbox" onChange={onChangeTypCheck} name={item.typ} id={item.id} />    */}
-      <button type="submit" name={item.typ} id={item.id} onClick={onClickDeleteType} >x</button> 
-      </div>
+      <button 
+          type="submit" 
+          className="tabType___body_del_btn"
+          name={item.typ} 
+          id={item.id} 
+          onClick={onActionType} 
+          >
+          {action}
+      </button> 
     );
 }
 
 export default TChecTypeDel;
+
+/* <input type="checkbox" onChange={onChangeTypCheck} name={item.typ} id={item.id} />    */
