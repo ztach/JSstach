@@ -18,6 +18,7 @@
     padding:1px;
 }
 
+$kolor_ramki:bisque ;
 
 .Panel{
     position: absolute;
@@ -40,7 +41,7 @@
         }
         &__right{
             @include panel_l_p;
-            background-color: bisque;
+            background-color: $kolor_ramki;
             overflow-y: auto;
         }
     }
@@ -92,45 +93,66 @@
     margin: 0 auto;
 }
 .tabType___table {
+    display: block;
     width: 100%;
 }
 
-.tabType___table___head{
-    width:100px;
+.tabType___head{
+    width:500px;
 }
 
-.tabType___table___head_th{
+.tabType___head_th{
     width:100%;
     padding: 0 3px;
+    
 }
 
-.tabType___table___head_th_0 {
-    width: 1%;
+.tabType___head_th_0 {
+    width: 10%;
+    padding:1px;
+    border: .05px $kolor_ramki solid;
 }
 
-.tabType___table___head_th_1 {
-    width: 80%;
+.tabType___head_th_1 {
+    width: 70%;
+    padding:1px;
+    border: .05px $kolor_ramki solid;
 }  
 
-.tabType___table___head_th_2 {
+.tabType___head_th_2 {
     width: 10%;
+    padding:1px;
+    border: .05px $kolor_ramki solid;
+}
+
+.tabType___head_th_3 {
+    width: 10%;
+    padding:1px;
+    border: .05px $kolor_ramki solid;
 }
 
 .tabType___body {
-    display: block;
     width:100%;
     }
 .tabType___body_id {
-    width: 20px;
+    display:block;
+    width: 100%;
     padding:1px;
+    text-align: center;
+    border: .05px $kolor_ramki solid;
 }
 .tabType___body_typ {
-    width: 90%;
-    margin-left:20px;
+    width: 100%;
+    padding:1px 5px;
+    border: .05px $kolor_ramki solid;
+    text-align: left;
 }
 
 .tabType___body_del{
-    width: 10px;
+    width: 100%;
+    padding:1px;
+    border: .05px $kolor_ramki solid;
+    text-align: center;
 }
 
 .tabType___body_del_btn{
@@ -145,6 +167,9 @@
     border:1px black solid;
     color: brown;
 }
+
+
+
 
 .activate-btn {
     display:block;

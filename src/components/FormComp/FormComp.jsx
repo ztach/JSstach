@@ -1,29 +1,44 @@
 import React, { PureComponent } from 'react';
-import { Formik } from 'formik';
+import { Formik,Form } from 'formik';
 
 //import { Test } from './FormComp.styles';
 
 class FormComp extends PureComponent { 
 
   state = {
+    formObject:{id:0,typ:''}
   }
 
-  // handleChange(event) {
-  //   this.setState({values: event.target.values});
-  // }
+  componentDidMount = ()=> {
+    if(this.props.isEdit){
+      console.log('monuje',this.props.inEdit)
+    this.setState({
+      formObject:this.props.inEdit
+    })}
+  }
 
+  componentDidUpdate = ()=> {
+    if(this.props.isEdit){
+      console.log('updatuje',this.props.inEdit)
+    this.setState({
+      formObject:this.props.inEdit
+    })}
+  }
   
 
   render () {
-    const {inEdit} = this.props;
+    const {formObject} = this.state;
+    const {inEdit,onResetEditType} = this.props;
 
+    console.log('dostaje',inEdit)
     return (
       <div>
       <h3>Edycja elementu id = {inEdit.id} </h3>
       <Formik
         initialValues={{...inEdit}}
         onSubmit={(values)=>{
-          console.log(values)
+          console.log('values',values)
+          onResetEditType()
         }}
       render={({
         values,
@@ -34,16 +49,17 @@ class FormComp extends PureComponent {
         handleSubmit,
         isSubmitting,
       }) => (
-        <form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <input 
-            name='content'
+            type="typ"
+            name="typ"
             onChange={handleChange}
-            value={values.content}
+            value={values.typ}
           />
           <br/>
           <button type="submit">Update</button>
           
-        </form>
+        </Form>
       )
     }
       />

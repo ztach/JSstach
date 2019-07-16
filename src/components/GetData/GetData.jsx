@@ -38,11 +38,6 @@ class GetData extends PureComponent {
       })
     }
 
-  // findById = (id,arr) => {
-  //   const index = arr.findIndex((item,idx) => 
-  //       item.id === parseInt(id))
-  //   return {index,typ:arr[index] }
-  // }
 
   findById = (id,arr) => {
     const index = _.findIndex(_.propEq('id', parseInt(id)))(arr)
@@ -62,6 +57,7 @@ class GetData extends PureComponent {
   }
 
   onEdityType = async (e) =>{
+    this.onResetEditType();
     const id = e.target.id;
     const typ = await getAllType.get(id)
     this.setState({
@@ -70,6 +66,12 @@ class GetData extends PureComponent {
     })
   }
 
+  onResetEditType = () => {
+    this.setState({
+      inEdit:'',
+      isEdit: false
+    })
+  }
 
   getMaxIdInArray = (arr) => {
     if(arr.length>0){
@@ -175,6 +177,8 @@ if(isDictLoading && isTypeLoading){
          {this.state.isEdit?
           <FormComp 
           inEdit={this.state.inEdit}
+          isEdit={this.state.isEdit}
+          onResetEditType={this.onResetEditType}
           />
           :
           null
