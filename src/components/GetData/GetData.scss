@@ -3,8 +3,7 @@
 @mixin panel_l_p {
     margin:2px;
     padding:1.5px;
-    flex-grow: 1;
-    width: 50vw;
+    width: 49vw;
     height: 46vh;
 }
 
@@ -12,7 +11,7 @@
     display: flex;
     flex-direction: row;
     flex-grow: 1;
-    width: 98vw;
+    width: 99vw;
     height: 55vh;
     margin:2.5px;
     padding:1px;
@@ -41,7 +40,7 @@ $kolor_ramki:bisque ;
         }
         &__right{
             @include panel_l_p;
-            background-color: $kolor_ramki;
+            background-color: rgba(158, 150, 150, 0.051);
             overflow-y: auto;
         }
     }
@@ -50,7 +49,7 @@ $kolor_ramki:bisque ;
 
         &__left{
             @include panel_l_p;
-            background-color: aquamarine;
+            background-color: rgb(231, 231, 231);
         }
         &__right{
             @include panel_l_p;
@@ -76,9 +75,17 @@ $kolor_ramki:bisque ;
                 font-size:16px;
                 font-weight: bold;
                 text-transform: uppercase;
-                border: 1px brown solid;
-                background-color: brown;
-                color:white;
+                color:rgb(4, 94, 31);
+                background-color: rgba(158, 150, 150, 0.51);
+                border: 1px groove rgba(6,23,34,0.08);
+                border-radius: 5px;
+                box-shadow: 1px 5px 21px 1px #b8b8a6dc;
+            }
+            &_btn:hover{
+                cursor: pointer;
+                background-color: rgb(163, 163, 163);
+                border: 1px groove rgba(181, 184, 185, 0.08);
+                color:yellow;
             }
 
         }
@@ -157,8 +164,15 @@ $kolor_ramki:bisque ;
 
 .tabType___body_del_btn{
     background-color: brown;
-    border:1px black solid;
-    color:yellow;
+
+    
+    font-weight: bold;
+    color:white;
+    background-color: rgba(158, 150, 150, 0.378);
+    border: 1.5px groove rgba(6,23,34,0.08);
+    border-bottom: 5px groove rgba(6,23,34,.51);
+    border-radius: 5px;
+    box-shadow: 1px 5px 21px 1px #bdbdbd;
 }
 
 .tabType___body_del_btn:hover {
@@ -168,7 +182,63 @@ $kolor_ramki:bisque ;
     color: brown;
 }
 
+.btn_position{
+    position:fixed ;
+    top:52px;
+    display: block;
+    margin:auto;
+    width:34px;
+    height:280px;
+    right:85px;
+    padding: 2px 10px;
+    color:white;
+    z-index: 5;
+    
+}
 
+.btn_position_zamknij{
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+    color:red;
+ 
+}
+
+.btn_position:hover{
+    cursor: pointer;
+    color:white;
+    display: block;
+    margin:auto;
+    width:34px;
+    height:280px;
+
+    background-color: black;
+}
+
+.insertBlock{
+    margin:20px;
+    &__insert{
+        width:80%;
+        padding:10px;
+        margin:7px 0 0 0;
+        font-size: 18px;
+    }
+
+    &__error{
+        color: red;
+        font-weight: bold;
+    }
+
+    &__btn {
+        display: flex;
+        flex-direction: row;
+        margin: 25px 0 0 -100px;
+
+        &_add{
+            width: 120px;
+        }
+    }
+}
 
 
 .activate-btn {
@@ -177,6 +247,7 @@ $kolor_ramki:bisque ;
     background-color: rgb(240, 212, 212);
     text-transform: uppercase;
     font-weight: bold;
+    
 }
 
 .activate-btn:hover {

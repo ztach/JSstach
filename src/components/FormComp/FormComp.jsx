@@ -1,44 +1,35 @@
 import React, { PureComponent } from 'react';
 import { Formik,Form } from 'formik';
-
-//import { Test } from './FormComp.styles';
+//import {update} from '../helpers/typeApi';
 
 class FormComp extends PureComponent { 
-
+ 
   state = {
-    formObject:{id:0,typ:''}
+    // formObject:{id:0,typ:''}
   }
 
-  componentDidMount = ()=> {
-    if(this.props.isEdit){
-      console.log('monuje',this.props.inEdit)
-    this.setState({
-      formObject:this.props.inEdit
-    })}
-  }
-
-  componentDidUpdate = ()=> {
-    if(this.props.isEdit){
-      console.log('updatuje',this.props.inEdit)
-    this.setState({
-      formObject:this.props.inEdit
-    })}
-  }
-  
 
   render () {
-    const {formObject} = this.state;
-    const {inEdit,onResetEditType} = this.props;
 
-    console.log('dostaje',inEdit)
+    const {inEdit,onResetEditType,onUpdateEditType} = this.props;
+
     return (
-      <div>
+      <div className="insertBlock" >
       <h3>Edycja elementu id = {inEdit.id} </h3>
       <Formik
         initialValues={{...inEdit}}
         onSubmit={(values)=>{
-          console.log('values',values)
-          onResetEditType()
+          onUpdateEditType(inEdit.id,values);
+          onResetEditType();
+        }}
+        validate={(values) => {
+          let errors={}
+          if(!values.typ) {
+            errors.content="Required"
+          } else if(values.typ.length < 3){
+            errors.content="Za ktrótki wpis. Minimum 3 znaki...";
+          }
+          return errors
         }}
       render={({
         values,
@@ -50,15 +41,21 @@ class FormComp extends PureComponent {
         isSubmitting,
       }) => (
         <Form onSubmit={handleSubmit}>
+          <label>
+            Content *
+            <div className="insertBlock__error">{errors.content}</div>
           <input 
+            className="insertBlock__insert"
             type="typ"
             name="typ"
             onChange={handleChange}
             value={values.typ}
           />
-          <br/>
-          <button type="submit">Update</button>
-          
+          </label>
+          <div className="insertBlock__btn">
+          <button className="Panel___down__right_btn insertBlock__btn_add"  type="submit">Update</button>
+          <button className="Panel___down__right_btn insertBlock__btn_add"  type="exit" onClick={onResetEditType} >Exit</button>
+          </div>
         </Form>
       )
     }
@@ -70,27 +67,3 @@ class FormComp extends PureComponent {
 
 export default FormComp;
 
-/**
- *         render  {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          isSubmitting,
-
-        }) => (
-          <form onSubmit={handleSubmit}>
-            <input
-              type="email"
-              name="email"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.email}
-            />
-            
-          </form>
-        )}
-
- */

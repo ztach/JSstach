@@ -11,13 +11,13 @@ const TabListSzablon = (props) => {
   const mheader=theader.map((i,idx)=> <th className={styl + '_' + idx} key={idx}>{i}</th> )
   return (  
     <div className="tabType">
-    <table className="tabType___table">
-    <thead className="tabType___head">
+    <table className="paleBlueRows">
+    <thead>
     <tr>
     {mheader}
     </tr>
     </thead>
-    <tbody className="tabType___body">
+    <tbody>
       {tbodyr}
     </tbody>
     </table>

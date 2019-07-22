@@ -1,57 +1,56 @@
 import React from 'react';
-//import {BrowserRouter as Router,Route,Switch} from 'react-router-dom'
-import {Route,Switch,Link} from 'react-router-dom';
-import GetModal from './GetModal';
-import GetApi from './GetApi';
-
-
-const Main = props => {
-    
-    return (
-    <main>
-      <Switch>
-        <Route path="/" exact />
-        <Route path="/GetApi"  component={GetApi} />
-        <Route path="/GetModal"  component={GetModal} />
-      </Switch>
-    </main>
-    )
-}
-
-  const Header = () => (
-    <header>
-      <nav>
-        <ul>
-          <li><Link to='/'>Home</Link></li>
-          <li><Link to= '/GetApi'>GetApi</Link></li>
-          <li><Link to='/GetModal'>GetModal</Link></li>
-        </ul>
-      </nav>
-    </header>
-  )
-  
+import Main from './Main';
+import LayoutWrapper from './LeyautWrapper';
+import './App.scss';  
 
 
 class Menu extends React.Component {
-    state = { 
-    };
 
- 
-render() {
+  state ={
+    isGetApi:false,
+    isGetModal:false,
+    isHome:false
+  }
+  onClickGetApi = () => {
+    this.setState({
+      isGetApi:true,
+      isGetModal:false,
+      isHome:false  
+    })
+  }
 
+  onClickGetModal = () => {
+    this.setState({
+      isGetApi:false,
+      isGetModal:true,
+      isHome:false
+    })
+  }
+
+  onClickGetHome = () => {
+    this.setState({
+      isGetApi:false,
+      isGetModal:false,
+      isHome:true  
+    })
+  }
+
+  // onClickGetApi
+  // onClickGetModal
+  // onClickGetHome
+
+  render(){
     return (
-
     <div>
-        <Header />
-        <Main  />
+      <Main />
+      <LayoutWrapper  className="menuHeader">
+        <p>Witaj</p>
+      </LayoutWrapper>
     </div>
-      
       );
-     }
- }
- 
+   }
+  }
+
+
  export default Menu;
-
-
-
-                
+ 

@@ -4,27 +4,16 @@ import GetData from '../GetData/GetData';
 
 class GetApi extends React.Component {
     state = { 
-        apiIsActive:false
+        // apiIsActive:false
      };
 
-     activateApi=() => {
-        this.setState({apiIsActive:!this.state.apiIsActive});
-     }
+    //  activateApi=() => {
+    //     this.setState({apiIsActive:!this.state.apiIsActive});
+    //  }
 
     render() {
         return (
-            <div>
-            {this.state.apiIsActive
-            ? 
-            <GetData />
-            :
-            <button className="activate-btn" 
-            onClick={this.activateApi}>
-                activate Api
-            </button>
-            }
-
-            </div>
+          <GetData />
         );
     }
 }

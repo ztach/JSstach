@@ -1,14 +1,13 @@
 import React from 'react';
 import TabListSzablon from '../../szablon/TabListSzablon';
 import TChecTypeDel from '../TChecTypeDel/TChecTypeDel';
-
-
+import './TypeList.scss';
+ 
 
 const TypeList = props => {
-const {type,onChangeTypCheck,checkTab,onClickDeleteType,onEdityType}=props;
-
+const {type,isInsert,onChangeTypCheck,checkTab,onClickDeleteType,onEdityType,onInsertType}=props;
   const theader = ['Id','Hasło','Usuń','Edytuj'];
-  const action=['x','Edit'] ;
+  const action=['Del','Edit','Insert'] ; 
 
   const tbodyr = type.map(item => 
   <tr key={item.id} >
@@ -38,7 +37,23 @@ const {type,onChangeTypCheck,checkTab,onClickDeleteType,onEdityType}=props;
 return (
       <div className="Panel___up__right">
       <h3>Lista obowiązujących typów haseł</h3>
-      <TabListSzablon tbodyr={tbodyr}  theader={theader} />
+     
+        <button 
+          type="submit" 
+          className="tabType___body_del_btn btn_position"
+          name="insert" 
+ 
+          onClick={onInsertType} 
+          >
+            {isInsert?
+            <div className="btn_position_zamknij"> Z a m k n i j </div>
+            :
+             <div className="btn_position_wstaw"> W s t a w  -  n o w y -   t y p  </div>
+            }
+      </button>    
+      
+      <TabListSzablon tbodyr={tbodyr}  theader={theader} />    
+
     </div>
     );
 }

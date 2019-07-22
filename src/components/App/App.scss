@@ -1,0 +1,60 @@
+
+.menuHeader {
+  display:flex;
+  flex-direction: column;
+  width: 300px;
+  
+  border: 1px black solid;
+
+  color:white;
+  font-size: 16px;
+  line-height: 2;
+  text-transform: uppercase ;
+  font-weight: bold;
+  margin:2px;
+  background-color: rgb(131, 129, 129);
+  border: 5px groove rgba(6,23,34,0.08);
+  border-radius: 15px;
+  box-shadow: 1px 5px 21px 5px #000000;
+
+  
+    &__nav{
+    }
+    &__ul{
+      color:white;
+      list-style: none;    
+    }
+    &__li{
+      width: 150px;
+      color:white;
+
+      margin:7px;
+    }
+    a {
+      display: block;
+      color:rgb(247, 232, 21);
+      text-decoration: none;
+      padding-left: 5px;
+      background-color: dimgray;
+      border: 5px groove rgba(6,23,34,0.08);
+      border-radius: 15px;
+      box-shadow: 1px 5px 21px 5px #000000;
+    }
+    a:hover {
+      cursor: pointer;
+      color:dimgray;
+      background-color: white;
+      border-right: 5px red solid;
+      border: 5px groove rgba(121, 101, 101, 0.28);
+    }
+  }
+
+  .menuHeader:hover {
+    color:black;
+    background-color: rgba(202, 199, 199,0.28);
+  }
+  
+.styleMain{
+
+}
+

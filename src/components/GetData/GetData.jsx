@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
-import {Link} from 'react-router-dom';
+
 import InsertDataType from '../InsertDataType/InsertDataType';
 import TypeList from '../TypeList/TypeList';
-//import getDictList from '../../common/getDictList';
+import DictList from '../DictList/DictList';
 //import MyNewApi from '../MyNewApi/MyNewApi';
 import FormComp from '../FormComp/FormComp';
 import * as getAllType from '../helpers/typeApi';
@@ -22,7 +22,8 @@ class GetData extends PureComponent {
       idDeleting:false,
       draft:'',
       inEdit:'',
-      isEdit: false
+      isEdit: false,
+      isInsert:false,
     };
  
   componentDidMount = async () => {
@@ -66,11 +67,27 @@ class GetData extends PureComponent {
     })
   }
 
+  onInsertType =() => {
+    this.setState({
+      isInsert: !this.state.isInsert
+    })
+  }
+
   onResetEditType = () => {
     this.setState({
       inEdit:'',
       isEdit: false
     })
+  }
+
+  onUpdateEditType = async (id,values) => {
+    await getAllType.update(id,values);
+    const type = await getAllType.getAllTypes();
+    this.setState({
+      type,
+      isTypeLoading:true,
+      })
+
   }
 
   getMaxIdInArray = (arr) => {
@@ -84,11 +101,11 @@ class GetData extends PureComponent {
    mId=() => this.getMaxIdInArray(this.state.type);
 
 
-  onClickSaveType = async () => {
-    const {type,draft} = this.state;
+  onClickSaveType = async (x) => {
+    const {type} = this.state;
     const id = this.mId().id;
 
-    const typ = await getAllType.create({id:id+1,typ:draft})
+    const typ = await getAllType.create({typ:x})
     this.setState({
       type: [...type,typ],
       draft:''
@@ -104,10 +121,9 @@ class GetData extends PureComponent {
   }
 
  render () {
-    const {dict,type,checkTab,isTypeLoading,isDictLoading,error} = this.state;    
+    const {dict,type,checkTab,isTypeLoading,isDictLoading,error,isInsert} = this.state;    
 
-  let slowa=[]
-    
+      
   let message="czekam na załadowanie ";
 
 if (!isDictLoading && !isTypeLoading){
@@ -134,37 +150,34 @@ if (!isDictLoading && isTypeLoading){
   )
 }
 
-
-if(isDictLoading && isTypeLoading){
-    if(dict.length>0){
-      slowa = dict.map(item=> 
-      <li key={item.id}>{item.id}. {item.sl} - typ pytania: '{item.gt}' (id typu: {item.typ}) </li>
-        )
-      }
-}
-
-        
+       
   return (
     <div className="Panel">
         <div className="Panel___up"> 
-
           {isDictLoading? 
-            <div className="Panel___up__left">
-              <h3>Lista haseł do odgadnięcia</h3>
-              <ul>
-              {slowa}
-              </ul>
-            </div>
+            <>
+            {
+              dict.length>0
+              ?
+              <DictList 
+                dict={dict}
+               />
+              :
+              null
+            }
+            </>
             :  
               <div>{error}</div>  
             }
 
           {isTypeLoading?
-          <TypeList 
+          <TypeList  
               type={type} 
+              isInsert={isInsert}
               checkTab={checkTab} 
               onClickDeleteType={this.onClickDeleteType}
               onEdityType={this.onEdityType}
+              onInsertType={this.onInsertType}
               />
           :
           <div>{error}</div>
@@ -179,22 +192,25 @@ if(isDictLoading && isTypeLoading){
           inEdit={this.state.inEdit}
           isEdit={this.state.isEdit}
           onResetEditType={this.onResetEditType}
+          onUpdateEditType={this.onUpdateEditType}
           />
           :
           null
          }
+         
        </div>
 
        <InsertDataType 
           type={type}
           mId={this.mId}
           draft={this.state.draft}
+          isInsert={isInsert}
           onChangeAddType={this.onChangeAddType}
           onClickSaveType={this.onClickSaveType}
-          />
-       <Link to='/'>Back</Link>
+          /> 
+       
     </div>
-
+    
   </div>
       
   );

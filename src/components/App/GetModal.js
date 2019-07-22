@@ -14,6 +14,10 @@ class GetModal extends React.Component {
     this.getApplicationNode = this.getApplicationNode.bind(this);
   }
 
+  componentDidMount = () => {
+    this.activateModal()  
+  }
+
   activateModal = () => {
     this.setState({ modalActive: true });
   };
@@ -27,6 +31,7 @@ class GetModal extends React.Component {
   };
 
   render() {
+    console.log('render')
     const modal = this.state.modalActive
       ? 
       <AriaModal
@@ -59,10 +64,7 @@ class GetModal extends React.Component {
         </AriaModal>
         
       : 
-      <button className="activate-btn" onClick={this.activateModal}>
-      activate modal
-      </button>
-
+      null
       ;
 
     return (
