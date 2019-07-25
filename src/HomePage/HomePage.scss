@@ -1,0 +1,23 @@
+.Home{
+    display: block;
+    width: 80%;
+    height: 72vh;
+    margin:0 auto;
+    background-color: rgb(239, 241, 241);
+    &___title{
+        margin: 20px;
+        padding: 20px;
+        text-align: center;
+    }
+    &___text{ 
+        text-align: justify;
+    }
+}
+
+article div img{
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+    height: 50%;
+    object-fit: contain;
+}

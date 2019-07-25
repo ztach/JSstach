@@ -1,0 +1,63 @@
+import React from 'react';
+import SplitPane from './SplitPane';
+import Header from '../Navigation/Header';
+import {Route,Switch,Link} from 'react-router-dom';
+import MainGame from '../wisielecGame/MainGame/MainGame';
+import GetApi from '../configGame/GetData/GetData'
+
+
+
+const Main = props => {
+  //const {onHandleClicked, isApiClicked, isGameClicked} = props;
+  
+  return (
+  <main  className="styleMain" >
+    <Switch>
+      <Route path="/" exact />
+      <Route path="/GetApi" exact component={Panel} />
+      <Route path="/MainGame" exact component={MainGame} />
+    </Switch>
+  </main>
+  )
+}
+
+
+const Navbar = () => {  
+  return (
+    <>
+    <Main/>
+    <Header/>
+    </>
+    );
+
+}
+
+const Panel = () => {
+  return (
+    <div className="MyPanel" >
+    <GetApi />
+    </div>
+  )
+}
+
+const Footer = () => {
+    return ( 
+    <div className="myFooter" > 
+     <Link to='/'>Back</Link>
+    </div>
+    )
+  }
+
+  const MyMenu = () => {
+    return (
+      <div>
+        {<Navbar />}
+        {<Footer/>}
+        </div>
+      );
+   }
+ 
+
+
+ export default MyMenu;
+ 

@@ -7,8 +7,9 @@ import React from 'react';
  */     
 const TabListSzablon = (props) => {
   const {tbodyr,theader} = props;
-  const styl="tabType___head_th";
-  const mheader=theader.map((i,idx)=> <th className={styl + '_' + idx} key={idx}>{i}</th> )
+  //const styl="tabType___head_th";
+  // className={styl + '_' + idx}
+  const mheader=theader.map((i,idx)=> <th key={idx}>{i}</th> )
   return (  
     <div className="tabType">
     <table className="paleBlueRows">
@@ -17,6 +18,7 @@ const TabListSzablon = (props) => {
     {mheader}
     </tr>
     </thead>
+    
     <tbody>
       {tbodyr}
     </tbody>

@@ -1,0 +1,60 @@
+
+.Panel___GameOverWrapper{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(90, 28, 28);
+    color:white;
+    font-size: 20px;
+    text-align: center;
+
+    &___picture{
+        display: block;
+        width: 50%;
+        height: 50%;
+        margin:auto;
+        border-radius:50px;
+        background-color: transparent;
+        background: url('../images/s9.jpg') rgb(90, 28, 28) center no-repeat;
+        animation:bounce-in 6s cubic-bezier(0.23,0.13,0.25,1) 0s infinite normal;
+    }
+
+    &___message{
+        padding:5px;
+    }
+    &___haslo{
+        padding:5px;
+    }
+    &___zaplit{
+        padding:5px;
+    }
+    &___click{
+        padding:5px;
+    }
+    &___clickBad{
+        padding:5px;
+    }
+    &___powrot{
+        position: relative;
+        left:0;
+        top: 0;
+    }
+    &___btn{
+        margin: 30px;
+        padding: 10px 21px;
+        font-size: 20px;
+        font-weight: bold;
+        text-transform: uppercase;
+
+    }
+    
+}
+
+@keyframes bounce-in {
+    0%{ opacity: 0; transform: scale(.3); }
+    50%{ opacity: 1; transform: scale(1.0); }
+    70%{ transform: scale(0.9); }
+    100%{ transform: scale(1); }
+    }

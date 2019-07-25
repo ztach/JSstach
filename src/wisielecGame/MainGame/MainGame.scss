@@ -1,0 +1,241 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+@mixin ramka_tekstu {
+    width: 70px;
+    height: 50px;
+    padding: 25px 0px;
+    margin: 2px 2px;
+    text-align: center;
+    font-size: 29px;
+}
+
+$kolor_tla_gry:rgb(89, 23, 23);
+
+.Panel{
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  color:black;
+
+  &___up{
+    width: 100%;
+    height: 40%;
+    background-color:$kolor_tla_gry;
+    display: flex;
+    flex-direction: row;
+
+    &__left{
+      flex-grow: 2;
+      background-color: $kolor_tla_gry;
+      width:100%;
+      display:flex;
+      flex-direction: row;
+
+      &_imgWisielec{
+        display: block;
+
+        margin:auto;
+        width:50%;
+        height: 90%;
+        img{
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+      &_data{
+        display: block;
+
+        margin:auto;
+        width:50%;
+        height: 90%;
+      }
+    }
+    
+
+    &__right{
+      flex-grow: 1;
+      background-color:$kolor_tla_gry;
+      display: block;
+      margin: 20px;
+      padding: 2px;
+
+      &_wybierz{
+        display: block;
+        color:white;
+        width: 350px;
+        height: 80%;
+        margin: 0px;
+        padding: 40px 0 0 0;
+        
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      &_Klawiatura{
+        display: flex;
+        flex-direction: row;
+
+        &_btn{
+          display: block;
+          text-align: center;
+          width:50px;
+          margin:2px;
+          padding: 7px 2px;
+          font-weight: bold;
+          border: 1px $kolor_tla_gry solid;
+          color:$kolor_tla_gry;
+          background-color:rgb(240, 202, 202);
+          border-radius:9px;
+          border: 1.5px black solid;
+          box-shadow:0px 0px 5px 5px #8f2121 ;
+
+        }
+        &_btn:hover{
+          cursor: pointer;
+          border: 1px white solid;
+          background-color:white;
+          color:$kolor_tla_gry;
+        }
+    }
+    
+    }
+  }
+
+  &___down {
+    width: 100%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+
+    &__up{
+      display: block;
+      flex-grow: 1;
+      width: 100%;
+      padding: 5px 0px;
+      background-color: rgb(167, 86, 86);
+      display: flex;
+      flex-direction: row;
+
+      &__sciaga{
+        width:80%;
+        color:white;
+        padding:0px 2px 0 10px;
+
+        &_message{
+          font-size: 25px;
+          font-variant:small-caps;
+          font-weight: bold;
+        }
+
+        &_opis{
+          font-size: 16px;
+          font-variant:small-caps;
+          font-weight: bold;
+          padding-top: 7px;
+
+        }
+
+      }
+      &__btn{
+        display: block;
+        
+        margin:  10px 10px 0 auto ;
+        padding: 5px 10px;
+        background-color: $kolor_tla_gry;
+        border: 2px black solid;
+        color:white;
+      }
+    }
+    
+    &__down{
+      display: block;
+      flex-grow: 50;
+      width: 100%;
+      
+        &_kreski{
+            
+            background-color: $kolor_tla_gry;
+            width: 100%;
+            height: 100%;
+            color:white;
+            display: flex;
+            flex-direction: row;
+            
+            &_kreska{
+              @include ramka_tekstu;
+              border-bottom: 2px white solid;
+              margin-left: 10px;
+            }
+            &_litera{
+              @include ramka_tekstu;
+              border-bottom: 2px white solid;
+              margin-left: 10px;
+            }
+            &_spacja{
+              @include ramka_tekstu;
+              margin-left: 10px;
+            }
+            &_wynikOver{
+              display:block;
+              max-width: 100%;
+              font-size:24px;
+              margin: auto;
+              line-height:1.5;
+            }
+        }
+    }
+    
+  }
+}
+
+.kreski__poziomB{
+  color:white;
+}
+

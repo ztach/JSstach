@@ -1,0 +1,49 @@
+[
+    {
+        "id":1,
+        "typ":"owoc"
+    },
+    {
+        "id":2,
+        "typ":"imie"
+    },
+    {
+        "id":3,
+        "typ":"osoba"
+    },
+    {
+        "id":4,
+        "typ":"kraj"
+    },
+    {
+        "id":5,
+        "typ":"przedmiot"
+    },
+    {
+        "id":6,
+        "typ":"tłumacz"
+    },
+    {
+        "id":7,
+        "typ":"tytuł książki"
+    },
+    {
+        "id":8,
+        "typ":"tato"
+    },
+    {
+        "id":9,
+        "typ":"lubię"
+    },
+    {
+        "id":10
+        ,"typ":"przeczytaj reportage"
+    },
+    {
+        "id":11
+        ,"typ":"wiersze"
+    },
+    {
+        "id":12
+        ,"typ":"tytuł piosenki"}
+]

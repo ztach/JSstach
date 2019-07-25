@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router} from 'react-router-dom'
-import './components/style/index.css';
+//import {BrowserRouter as Router} from 'react-router-dom'
+import './style/index.css';
 import * as serviceWorker from './serviceWorker';
-//import MainMenu from './components/App/MenuGet'
-import MainMenu from './components/Menu/Menu'
+//import MainMenu from './configGame/App/MenuGet'
+import MainMenu from './Menu'
 
 
 ReactDOM.render((
-    <Router>
+    
       <MainMenu/>
-    </Router>
+    
   ), document.getElementById('root'));
 
 

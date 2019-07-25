@@ -1,0 +1,40 @@
+$coral: #FF7346;
+$darkBlue: #0B486B;
+
+$header: rgba(38, 70, 83, 1);
+$sources: rgba(36, 117, 149, 1);
+$footer: rgba(194, 52, 0, 1);
+$source: rgba(42, 41, 40, 1);
+$tlo: rgba(242, 240, 237, 1);
+$tlo2: #0B3142;
+$tlo_konfigWrapper: rgba(7, 7, 7, 0.25);
+$tlo_konfigTypList: rgba(7, 7, 7, 0.5);
+$tlo_button:rgb(65, 3, 3);
+$tlo_error:yellow;
+
+$font_error: rgba(179, 21, 21, 0.952);
+
+$font-oswald: 'Oswald', sans-serif;
+$font-Merriweather: 'Merriweather Sans', sans-serif;
+$font_color_header: rgba(65,3,3,.2);
+
+$border:2px red solid;
+
+@mixin button_property($font_size){
+    margin: 10px;
+    padding:15px;
+    font-family:$font-Merriweather;
+    font-size: $font_size;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+@mixin button__ok_an($color,$font_size){
+    color: $color;
+    width: 35%;
+    margin:15px;
+    padding:5px;
+    font-family:$font-Merriweather;
+    font-size: $font_size;
+
+}
