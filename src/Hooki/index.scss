@@ -1,0 +1,47 @@
+.SubMenu {
+    border:2px red solid;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 20px;
+}
+
+.SubMenu nav ul {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.SubMenu nav ul li {
+    flex-grow: 2;
+}
+
+.SubMenu nav ul li a{
+    text-decoration: none;
+    list-style: none;
+}
+
+
+.styleMain{
+    display: block;
+    height: 70%;
+}
+
+.styleMain div{
+    display: block;
+    margin:50px;
+    min-height: 370px;
+
+    border: 1px yellow solid;
+}
+
+.styleMain p{
+    font-size:18px;
+    margin:20px;
+}
+
+.styleMain button{
+    font-size:14px;
+    font-weight: bold;
+    margin:20px;
+    padding:20px;
+}

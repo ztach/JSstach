@@ -4,3 +4,6 @@ export const typItemApiUrl = id =>
 
 export const dictItemApiUrl = id =>
     id ? `${serverUrl}/dict/${id}` : `${serverUrl}/dict/`;
+
+export const dictsItemApiUrl = id =>
+    id ? `${serverUrl}/dicts/${id}` : `${serverUrl}/dicts/`;

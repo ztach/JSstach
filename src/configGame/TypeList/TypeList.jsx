@@ -5,7 +5,15 @@ import './TypeList.scss';
  
 
 const TypeList = props => {
-const {type,isInsert,onChangeTypCheck,checkTab,onClickDeleteType,onEdityType,onInsertType}=props;
+const {
+      type,
+      isInsertTyp,
+      onChangeTypCheck,
+      checkTab,
+      onClickDeleteType,
+      onEditType,
+      onInsertType}=props;
+
   const theader = ['Id','Hasło','Usuń','Edytuj'];
   const action=['Del','Edit','Insert'] ; 
 
@@ -27,25 +35,25 @@ const {type,isInsert,onChangeTypCheck,checkTab,onClickDeleteType,onEdityType,onI
         action={action[1]}
         item={item} 
         onChangeTypCheck={onChangeTypCheck} 
-        onActionType={onEdityType}
+        onActionType={onEditType}
         checkTab={checkTab} 
         />       
     </td>
   </tr>
-    )
+    ) 
 
 return (
       <div className="RPanel___up__right">
       <h3>Lista obowiązujących typów haseł</h3>
      
-        <button 
+      <button 
           type="submit" 
           className="tabType___body_del_btn btn_position"
           name="insert" 
  
           onClick={onInsertType} 
           >
-            {isInsert?
+            {isInsertTyp?
             <div className="btn_position_zamknij"> Z a m k n i j </div>
             :
              <div className="btn_position_wstaw"> W s t a w  -  n o w y -   t y p  </div>

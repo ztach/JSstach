@@ -2,15 +2,19 @@ import React, { PureComponent } from 'react';
 import TabListSzablon from '../../szablon/TabListSzablon';
 import TChecTypeDel from '../TChecTypeDel/TChecTypeDel';
 
-//import { Test } from './DictList.styles';
-
 class DictList extends PureComponent { 
-    state = {
-            }
-
+  state = {}
 
   render () {
-  const {dict,isInsert,onChangeDictCheck,checkTab,onClickDeleteDict,onEditDict}=this.props;
+  const {
+         dict,
+         isInsertDict,
+         onChangeDictCheck,
+         checkTab,
+         onClickDeleteDict,
+         onEditDict,
+         onInsertDict}=this.props;         
+
   const theader = ['Id','Hasło','Znaczenie','typId','polecenieid','Usuń','Edytuj'];
   const action=['Del','Edit','Insert'] ; 
 
@@ -43,17 +47,25 @@ class DictList extends PureComponent {
       )
   
 
-/*
-  let slowa = dict.map(item=> 
-      <li key={item.id}>{item.id}. {item.sl} - typ pytania: '{item.gt}' (id typu: {item.typ_id}) </li>
-        )
-*/
   
     return (
       <div className="RPanel___up__left">
         
           <h3>Lista haseł do odgadnięcia</h3>
-      
+      <button 
+          type="submit" 
+          className="tabType___body_del_btn btn_position_dict"
+          name="insert" 
+ 
+          onClick={onInsertDict} 
+          >
+            {isInsertDict?
+            <div className="btn_position_zamknij"> Z a m k n i j </div>
+            :
+             <div className="btn_position_wstaw"> W s t a w  -  n o w e -   h a s ł o  </div>
+            }
+      </button>    
+        
       <TabListSzablon tbodyr={tbodyr}  theader={theader} />    
     </div>
     );

@@ -9,6 +9,7 @@ const Header = (props) => {
     {name:'gra',path:'/gra',style:'gra_selected'},
     {name:'konfiguracja',path:'/konfiguracja',style:'ustawienia_selected'},
     {name:'kontakt',path:'/contact',style:'contact_selected'},
+    {name:'hooki',path:'/hooki',style:'hooki_selected'},
     {name:'panel admina',path:'/admin',style:'admin_selected'}
   ]
   

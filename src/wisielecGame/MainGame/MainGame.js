@@ -4,7 +4,7 @@ import Klawiatura from './Klawiatura/Klawiatura';
 import UserDefault from '../const/UserDefault';
 import GetPicture from './GetPicture/GetPicture';
 import PanelGameOver from './PanelGameOver/PanelGameOver';
-
+import * as getAllType from '../../helpers/typeApi';
 
 import './MainGame.scss';
 
@@ -43,9 +43,17 @@ class MainGame extends Component {
    }
  
  
-  componentDidMount = () => {
-     this.getDictList();
-     this.getTypesLists();
+  componentDidMount = async () => {
+    //  this.getDictList();
+    //  this.getTypesLists();
+     const type = await getAllType.getAllTypes();
+     const dict = await getAllType.getAllDicts();
+     
+     this.setState({
+       type,
+       dict
+       })
+ 
   }
 
   componentDidUpdate = ()=>{

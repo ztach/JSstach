@@ -5,8 +5,7 @@ import HomePage from '../../HomePage';
 import MainGame from '../../wisielecGame/MainGame/MainGame';
 import ContactPage from '../../ContactPage';
 import AdminPage from '../../AdminPage';
-
-
+import Hooki from '../../Hooki/Index'
 
 const Pages = props => {
 
@@ -16,6 +15,7 @@ const Pages = props => {
       <Route path="/gra"  component={MainGame}  />
       <Route path="/konfiguracja" exact component={TypeChange}/>
       <Route path="/contact"  component={ContactPage} />
+      <Route path="/hooki"  component={Hooki} />
       <Route path="/admin"  component={AdminPage} />
     </Switch>
       );

@@ -3,9 +3,8 @@ import React, { PureComponent } from 'react';
 import InsertDataType from '../InsertDataType/InsertDataType';
 import TypeList from '../TypeList/TypeList';
 import DictList from '../DictList/DictList';
-//import MyNewApi from '../MyNewApi/MyNewApi';
 import FormComp from '../FormComp/FormComp';
-import * as getAllType from '../helpers/typeApi';
+import * as getAllType from '../../helpers/typeApi';
 import * as _ from 'ramda';
 import './GetData.scss';
 
@@ -24,13 +23,18 @@ class GetData extends PureComponent {
       inEdit:'',
       isEdit: false,
       isInsertTyp:false,
-      isInsertDict:false
+      isInsertDict:false,
+      whoEdit:{
+        inEdit:'',
+        isEdit:false,
+        whatEdit:null  /** 0 - typ, 1 - dict, null - nic */
+      }
     };
  
   componentDidMount = async () => {
 
     const type = await getAllType.getAllTypes();
-    const dict = await getAllType.getAllDicts();
+    const dict = await getAllType.getAllDict();
     
     this.setState({
       type,
@@ -50,7 +54,7 @@ class GetData extends PureComponent {
   onClickDeleteType = async (e) => {
     const id = e.target.id;
     const {type} = this.state;
-     await getAllType.destroy(id)
+     await getAllType.destroyType(id)
     const {index} = this.findById(id,type)
     
      this.setState({
@@ -58,23 +62,49 @@ class GetData extends PureComponent {
     })
   }
 
-  onEdityType = async (e) =>{
+  onClickDeleteDict = async (e) => {
+    const id = e.target.id;
+    const {dict} = this.state;
+     await getAllType.destroyDict(id)
+    const {index} = this.findById(id,dict)
+    
+     this.setState({
+      dict: _.remove(index,1,dict)
+    })
+  }
+
+
+  onEditType = async (e) =>{
     this.onResetEditType();
     const id = e.target.id;
     const typ = await getAllType.get(id)
+
     this.setState({
-      inEdit:typ,
-      isEdit:true
+      whoEdit:{
+        inEdit:typ,
+        isEdit:true,
+        whatEdit:0
+      }
     })
+
   }
 
   onEditDict = async (e) => {
     const id = e.target.id;
     const dict = await getAllType.getd(id);
+    // this.setState({
+    //   inEdit:dict,
+    //   isEdit:true
+    // })
+
     this.setState({
-      inEdit:dict,
-      isEdit:true
+      whoEdit:{
+        inEdit:dict,
+        isEdit:true,
+        whatEdit:1
+      }
     })
+
   }
 
   onInsertType =() => {
@@ -92,19 +122,33 @@ class GetData extends PureComponent {
 
   onResetEditType = () => {
     this.setState({
-      inEdit:'',
-      isEdit: false
+      whoEdit:{
+        inEdit:'',
+        isEdit:false,
+        whatEdit:null
+      }
     })
+
+
   }
 
   onUpdateEditType = async (id,values) => {
-    await getAllType.update(id,values);
+    await getAllType.updateType(id,values);
     const type = await getAllType.getAllTypes();
     this.setState({
       type,
       isTypeLoading:true,
       })
 
+  }
+
+  onUpdateEditDict = async (id,values) => {
+    await getAllType.updateDict(id,values);
+    const dict = await getAllType.getAllDict();
+    this.setState({
+      dict,
+      isDictLoading:true,
+      })
   }
 
   getMaxIdInArray = (arr) => {
@@ -120,11 +164,19 @@ class GetData extends PureComponent {
 
   onClickSaveType = async (x) => {
     const {type} = this.state;
-    const id = this.mId().id;
-
-    const typ = await getAllType.create({typ:x})
+    const typ = await getAllType.createType({typ:x});
     this.setState({
       type: [...type,typ],
+      draft:''
+    })
+  }
+
+  onClickSaveDict = async (x) => {
+    const {dict} = this.state;
+    const {sl,gt,typ_id,polecenie_id} = x;
+    const dic = await getAllType.createDict({sl,gt,typ_id,polecenie_id});
+    this.setState({
+      dict:[...dict,dic],
       draft:''
     })
   }
@@ -138,10 +190,17 @@ class GetData extends PureComponent {
   }
 
  render () {
-    const {dict,type,checkTab,isTypeLoading,isDictLoading,error,isInsert} = this.state;    
+    const {dict,
+           type,
+           checkTab,
+           isTypeLoading,
+           isDictLoading,
+           error,
+           isInsertTyp,
+           isInsertDict } = this.state;    
 
       
-  let message="czekam na załadowanie ";
+let message="czekam na załadowanie ";
 
 if (!isDictLoading && !isTypeLoading){
     return (
@@ -166,7 +225,6 @@ if (!isDictLoading && isTypeLoading){
     </div>
   )
 }
-
        
   return (
     <div className="RPanel">
@@ -178,7 +236,7 @@ if (!isDictLoading && isTypeLoading){
               ?
               <DictList 
                 dict={dict}
-                isInsert={isInsert}
+                isInsertDict={isInsertDict}
                 checkTab={checkTab} 
                 onClickDeleteDict={this.onClickDeleteDict}
                 onEditDict={this.onEditDict}
@@ -195,12 +253,12 @@ if (!isDictLoading && isTypeLoading){
           {isTypeLoading?
           <TypeList  
               type={type} 
-              isInsert={isInsert}
+              isInsertTyp={isInsertTyp}
               checkTab={checkTab} 
               onClickDeleteType={this.onClickDeleteType}
-              onEdityType={this.onEdityType}
+              onEditType={this.onEditType}
               onInsertType={this.onInsertType}
-              />
+              /> 
           :
           <div>{error}</div>
           }
@@ -209,12 +267,15 @@ if (!isDictLoading && isTypeLoading){
        
 
        <div className="RPanel___down__left">
-         {this.state.isEdit?
+         {this.state.whoEdit.isEdit?
           <FormComp 
-          inEdit={this.state.inEdit}
-          isEdit={this.state.isEdit}
+          // inEdit={inEdit}
+          // isEdit={isEdit}
+          whoEdit={this.state.whoEdit}
+            
           onResetEditType={this.onResetEditType}
           onUpdateEditType={this.onUpdateEditType}
+          onUpdateEditDict={this.onUpdateEditDict}
           />
           :
           null
@@ -227,9 +288,11 @@ if (!isDictLoading && isTypeLoading){
           dict={dict}
           mId={this.mId}
           draft={this.state.draft}
-          isInsert={isInsert}
+          isInsertDict={isInsertDict}
+          isInsertTyp={isInsertTyp}
           onChangeAddType={this.onChangeAddType}
           onClickSaveType={this.onClickSaveType}
+          onClickSaveDict={this.onClickSaveDict}
           /> 
        
     </div>

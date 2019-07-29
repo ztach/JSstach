@@ -35,11 +35,22 @@ $kolor_ramki:bisque ;
             @include panel_l_p;
             background-color: rgba(223, 222, 222,.12);
             overflow-y: auto;
+            h3{
+                font-weight: bold;
+                font-size: 22px;
+                padding: 20px 0;
+            }
         }
         &__right{
             @include panel_l_p;
             background-color: rgba(158, 150, 150, 0.051);
             overflow-y: auto;
+            h3{
+                font-weight: bold;
+                font-size: 22px;
+                padding: 20px 0;
+            }
+
         }
     }
     &___down{
@@ -58,12 +69,25 @@ $kolor_ramki:bisque ;
                 margin-top:10px;
                 padding:6px;
                 font-size:18px;
+                &_dict{
+                    display: block;
+                    font-size:16px;
+                    font-weight: bold;
+                    padding:6px 0;
+                }
             }
+            
             &_input{
                 display:block;
                 width:80%;
                 margin-top:10px;
                 padding:6px;
+                &_dict{
+                    display: block;
+                    width: 80%;
+                    padding: 2px 0;
+                    font-size: 16px;
+                }
             }
             &_btn{
                 display:block;
@@ -187,7 +211,7 @@ $kolor_ramki:bisque ;
     height:280px;
     right:85px;
     padding: 2px 10px;
-    color:white;
+    color:black;
     z-index: 5;
     
 }
@@ -211,6 +235,33 @@ $kolor_ramki:bisque ;
     background-color: black;
 }
 
+
+.btn_position_dict{
+    position:fixed ;
+    top:52px;
+    display: block;
+    margin:auto;
+    width:34px;
+    height:280px;
+    left:565px;
+    padding: 2px 10px;
+    color:black;
+    z-index: 5;
+}
+
+.btn_position_dict:hover{
+    cursor: pointer;
+    color:white;
+    display: block;
+    margin:auto;
+    width:34px;
+    height:280px;
+
+    background-color: black;
+
+}
+
+
 .insertBlock{
     margin:20px;
     &__insert{
@@ -218,6 +269,26 @@ $kolor_ramki:bisque ;
         padding:10px;
         margin:7px 0 0 0;
         font-size: 18px;
+        &_sl{
+            width:90%;
+            padding:5px;
+            font-size: 15px;
+        }
+        &_gt{
+            width:90%;
+            padding:5px;
+            font-size: 15px;
+        }
+        &_typid{
+            width:90%;
+            padding:5px;
+            font-size: 15px;
+        }
+        &_polecenieid{
+            width:90%;
+            padding:5px;
+            font-size: 15px;
+        }
     }
 
     &__error{
@@ -235,6 +306,7 @@ $kolor_ramki:bisque ;
         }
     }
 }
+
 
 
 .activate-btn {

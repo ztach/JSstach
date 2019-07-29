@@ -32,9 +32,10 @@ class InsertDataType extends PureComponent {
 
 
   render () {
-    const {mId,isInsert} = this.props;
+    const {mId,isInsertTyp,isInsertDict} = this.props;
     const maxId = mId();
-    if(!isInsert){
+
+    if((!isInsertTyp && !isInsertDict) || (isInsertTyp && isInsertDict)  ){
       return (
         <div>Czekam ...</div>
       )
@@ -42,12 +43,20 @@ class InsertDataType extends PureComponent {
 
     return (
       <div className="RPanel___down__right">
+      {isInsertTyp?
         <h3>Max Id = {maxId.id} : {maxId.typ}</h3>
-
+        :
+        null
+      }
         <Formik
          onSubmit={(values)=>{
+          if(isInsertTyp){
             this.props.onClickSaveType(values.typ)
-            //onResetEditType();
+          }
+          if(isInsertDict){
+            this.props.onClickSaveDict(values);
+          }
+          
          }}
         validate={(values) => {
           let errors={}
@@ -72,10 +81,13 @@ class InsertDataType extends PureComponent {
         isSubmitting,
       }) => (
         <Form onSubmit={handleSubmit}>
+
+        {isInsertTyp && !isInsertDict ?
+
           <label className="RPanel___down__right_label"> 
             <h4>Wprowadź nowy typ hasła:</h4>
             <div>{errors.content}</div>
-            
+
           <input
             className="RPanel___down__right_input" 
             type="text" 
@@ -84,6 +96,71 @@ class InsertDataType extends PureComponent {
             onChange={handleChange}
           />
           </label>
+          :null
+          }
+
+          {!isInsertTyp && isInsertDict ?
+          <>
+            <label className="RPanel___down__right_label_dict"> 
+            <h4>Wprowadź nowe hasło:</h4>
+            <div>{errors.content}</div>
+
+            <input
+            className="RPanel___down__right_input_dict" 
+            type="text" 
+            name="sl" 
+            id="sl" 
+            onChange={handleChange}
+            />
+            </label>
+
+
+            <label className="RPanel___down__right_label_dict"> 
+            <h4>Wprowadź znaczenie hasła:</h4>
+            <div>{errors.content}</div>
+
+            <input
+            className="RPanel___down__right_input_dict" 
+            type="text" 
+            name="gt" 
+            id="gt" 
+            onChange={handleChange}
+            />
+            </label>
+
+
+            <label className="RPanel___down__right_label_dict"> 
+            <h4>Wprowadź id typu:</h4>
+            <div>{errors.content}</div>
+
+            <input
+            className="RPanel___down__right_input_dict" 
+            type="number" 
+            name="typ_id" 
+            id="typ_id" 
+            onChange={handleChange}
+            />
+            </label>
+
+
+            <label className="RPanel___down__right_label_dict"> 
+            <h4>Wprowadź id polecenia:</h4>
+            <div>{errors.content}</div>
+
+            <input
+            className="RPanel___down__right_input_dict" 
+            type="number" 
+            name="polecenie_id" 
+            id="polecenie_id" 
+            onChange={handleChange}
+            />
+            </label>            
+          </>
+          :null
+          }
+
+
+
           
           <button className="RPanel___down__right_btn"  type="submit">Save</button>
 
@@ -101,28 +178,3 @@ class InsertDataType extends PureComponent {
 
 export default InsertDataType;
 
-/**
- *           <button className="RPanel___down__right_btn"  type="exit" onClick={onResetEditType} >Exit</button>
- * ----------------
-        <label htmlFor="types" 
-               className="RPanel___down__right_label"> 
-                Wprowadź nowy typ hasła:
-
-          <input 
-                onChange={this.props.onChangeAddType} 
-                value={draft} 
-                className="RPanel___down__right_input" 
-                type="text" 
-                name="tyes" 
-                id="types"
-           />
-
-        </label>
-          <button 
-              className="RPanel___down__right_btn" 
-              onClick={this.props.onClickSaveType} >
-                Zapisz
-          </button>
------------------          
-
- */
